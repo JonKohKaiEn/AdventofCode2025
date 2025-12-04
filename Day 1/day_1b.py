@@ -1,34 +1,28 @@
-# with open('day_1_input.txt', 'r') as f:
-#     input_txt = [s.rstrip('\n') for s in f.readlines()]
-input_txt = ['L68', 'L30', 'R48', 'L5', 'R60', 'L55', 'L1', 'L99', 'R14', 'L82']
+with open('day_1_input.txt', 'r') as f:
+    input_txt = [s.rstrip('\n') for s in f.readlines()]
+# input_txt = ['L68', 'L30', 'R48', 'L5', 'R60', 'L55', 'L1', 'L99', 'R14', 'L82']
+# input_txt = ['L55']
 
 count = 0
 dial = 50
 for rotation in input_txt:
+    print(rotation)
     direction = rotation[0]
     amount = int(rotation[1:])
-    while True:
-        if direction == 'R':
-            if dial + amount > 99:
-                amount -= 100 - dial
-                dial = 0
-                count += 1
-            else:
-                dial += amount
-                if dial == 0:
-                    count += 1
-                break
+    if direction == 'R':
+        crossing, remainder = divmod(dial+amount, 100)
+        count += crossing
+        dial = remainder
+    else:
+        crossing, remainder = divmod(dial-amount, 100)
+        if dial == 0:
+            count += abs(crossing) - 1
         else:
-            if dial - amount < 0:
-                amount -= dial + 1
-                dial = 99
-                count += 1
-            else:
-                dial -= amount
-                if dial == 0:
-                    count += 1
-                break
+            count += abs(crossing)
+        dial = remainder
+        if dial == 0:
+            count += 1
 
-        print(dial, amount)
+    print(dial, count)
 
 print(count)
