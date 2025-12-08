@@ -1,7 +1,7 @@
-# with open("./day_4_input.txt", "r") as f:
-#     input_txt = [s.rstrip("\n") for s in f.readlines()]
-with open("./day_4_test.txt", "r") as f:
+with open("./day_4_input.txt", "r") as f:
     input_txt = [s.rstrip("\n") for s in f.readlines()]
+# with open("./day_4_test.txt", "r") as f:
+#     input_txt = [s.rstrip("\n") for s in f.readlines()]
 
 
 grid = [[c for c in row] for row in input_txt]
