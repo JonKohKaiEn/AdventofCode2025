@@ -1,0 +1,31 @@
+# with open("./day_5_input.txt", "r") as f:
+#     input_txt = [s.rstrip("\n") for s in f.readlines()]
+with open("./day_5_test.txt", "r") as f:
+    input_txt = [s.rstrip("\n") for s in f.readlines()]
+
+fresh_ranges = list()
+for line in input_txt:
+    if "-" in line:
+        n1, n2 = line.split("-")
+        fresh_ranges.append((int(n1), int(n2)))
+
+merged_ranges = []
+for fresh_range in fresh_ranges:
+    if not merged_ranges:
+        merged_ranges.append(list(fresh_range))
+        continue
+    print(f"Comparing with {fresh_range}")
+    test_1, test_2 = fresh_range
+    for curr_1, curr_2 in merged_ranges:
+        if test_1 <= curr_2 <= test_2:
+            print(f"Merging {(curr_1, curr_2)} with {(test_1, test_2)}")
+            curr_2 = test_2
+        elif test_1 <= curr_1 <= test_2:
+            print(f"Merging {(curr_1, curr_2)} with {(test_1, test_2)}")
+            curr_1 = test_1
+        else:
+            print(f"Appending {(test_1, test_2)}")
+            merged_ranges.append(list(fresh_range))
+    print(merged_ranges)
+
+print(merged_ranges)
